@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Astro — Live Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    color-scheme: light;
+    --page:           #f2f5fa;
+    --surface-1:      #ffffff;
+    --surface-2:      #e9edf5;
+    --text-primary:   #11151f;
+    --text-secondary: #5a6478;
+    --text-muted:     #838da2;
+    --gridline:       #dbe1ec;
+    --border:         rgba(17,21,31,0.12);
+
+    --accent:         #4a3aa7;
+    --accent-soft:    rgba(74,58,167,0.10);
+
+    --good:           #0ca30c;
+    --critical:       #d03b3b;
+    --warning:        #b5710a;
+    --neutral-bg:     #e7eaf1;
+    --neutral-text:   #5a6478;
+
+    --call:           #2a78d6;
+    --put:            #c23d84;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --page:           #0a0d14;
+      --surface-1:      #141a26;
+      --surface-2:      #1c2434;
+      --text-primary:   #eef1f8;
+      --text-secondary: #9aa4bd;
+      --text-muted:     #7c869e;
+      --gridline:       #262f42;
+      --border:         rgba(238,241,248,0.12);
+
+      --accent:         #9085e9;
+      --accent-soft:    rgba(144,133,233,0.16);
+
+      --good:           #28c840;
+      --critical:       #f0645f;
+      --warning:        #f2b636;
+      --neutral-bg:     #232b3c;
+      --neutral-text:   #9aa4bd;
+
+      --call:           #3987e5;
+      --put:            #d55181;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text-primary); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 0 32px; }
+  header { padding: 20px 24px 12px; display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; }
+  h1 { font-size: 21px; margin: 0; font-weight: 700; letter-spacing: -0.01em; }
+  .sub { color: var(--text-secondary); font-size: 14px; margin-top: 2px; max-width: 60ch; }
+  #status-bar { padding: 0 24px 16px; display: flex; gap: 18px; flex-wrap: wrap; font-size: 15px; color: var(--text-secondary); }
+  #status-bar b { color: var(--text-primary); font-variant-numeric: tabular-nums; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; flex: none; }
+  .dot.live { background: var(--good); }
+  .dot.stale { background: var(--warning); }
+
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 0 24px 16px; }
+  .card h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin: 0 0 12px; }
+
+  .note-banner {
+    font-size: 13.5px; font-weight: 600; padding: 10px 16px; border-radius: 10px; margin: 0 24px 16px;
+    background: color-mix(in srgb, var(--warning) 14%, var(--surface-1)); color: var(--warning); border: 1px solid var(--warning);
+  }
+
+  .plan-empty { color: var(--text-muted); font-size: 14px; }
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px 18px; }
+  .plan-item .k { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .plan-item .v { font-size: 17px; font-weight: 700; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .plan-item .v.CALL { color: var(--call); }
+  .plan-item .v.PUT { color: var(--put); }
+  .decision-pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 800; }
+  .decision-pill.TRADE { background: color-mix(in srgb, var(--good) 18%, var(--surface-1)); color: var(--good); }
+  .decision-pill.SMALLSIZE { background: color-mix(in srgb, var(--warning) 18%, var(--surface-1)); color: var(--warning); }
+  .avoid-line { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--gridline); font-size: 12.5px; color: var(--text-muted); }
+
+  .windows-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 560px) { .windows-grid { grid-template-columns: 1fr; } }
+  .window-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .window-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .window-name { font-size: 15px; font-weight: 700; }
+  .status-chip { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 3px 8px; border-radius: 999px; }
+  .status-chip.pending { background: var(--neutral-bg); color: var(--neutral-text); }
+  .status-chip.in_window { background: color-mix(in srgb, var(--warning) 18%, var(--surface-1)); color: var(--warning); }
+  .status-chip.past_window { background: color-mix(in srgb, var(--accent) 16%, var(--surface-1)); color: var(--accent); }
+  .status-chip.scheduled { background: var(--neutral-bg); color: var(--neutral-text); }
+  .window-times { font-size: 12.5px; color: var(--text-secondary); display: flex; flex-direction: column; gap: 2px; margin-bottom: 8px; font-variant-numeric: tabular-nums; }
+  .window-note { font-size: 12px; color: var(--text-muted); font-style: italic; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .stat { text-align: center; }
+  .stat .v { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .stat .k { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; color: var(--text-muted); font-weight: 600; padding: 6px 4px; border-bottom: 1px solid var(--gridline); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.04em; }
+  td { padding: 7px 4px; border-bottom: 1px solid var(--gridline); font-variant-numeric: tabular-nums; }
+  .pos-pnl-cell { color: var(--good); } .neg-pnl-cell { color: var(--critical); }
+  .empty-row td { color: var(--text-muted); text-align: center; padding: 16px 4px; }
+
+  footer { padding: 8px 24px 24px; font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  a.trades-link { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; }
+  a.trades-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1>Astro — Live Dashboard</h1>
+    <div class="sub">Time-triggered ATM NIFTY / BANKNIFTY / SENSEX option buying — no indicator signal, purely clock-driven per an embedded day-plan. SL fixed 30%, target and exit time-box vary per day.</div>
+  </div>
+  <a class="trades-link" href="trades.html">Day-wise trades &amp; G/L &rarr;</a>
+</header>
+
+<div id="status-bar"></div>
+<div id="note-root"></div>
+<div id="root"></div>
+
+<footer>
+  This dashboard is a <b>snapshot</b>, not a continuous live feed — Astro has no single
+  always-on local engine (unlike a ticking indicator strategy); entries and exits are placed
+  by independent scheduled cloud routines, and this Dhan account also runs several other live
+  strategies trading the same underlyings, so polling raw Dhan positions here could not
+  reliably tell Astro's trades apart from theirs. Data comes from this project's own
+  <code>trade_log.json</code> (built by pulling the 7 Astro routines' own run logs) and
+  <code>plan_compact.json</code> — refreshed on request ("sync the Astro trade log, then
+  update the dashboard"), not automatically. Window status below is schedule-derived, not a
+  confirmed fill — check Dhan directly during an active window.
+</footer>
+
+</div>
+
+<script>
+const STATE_URL = "live_state.json";
+
+function fmt(v) { return (v > 0 ? '+' : '') + Number(v).toFixed(1); }
+
+function decisionClass(d) { return (d || "").replace(/\s+/g, ""); }
+
+function renderPlan(plan, shownNote) {
+  const root = document.getElementById("root");
+  const noteRoot = document.getElementById("note-root");
+
+  if (shownNote) {
+    noteRoot.innerHTML = `<div class="note-banner">${shownNote}</div>`;
+  } else {
+    noteRoot.innerHTML = "";
+  }
+
+  if (!plan) {
+    root.innerHTML = `<div class="card"><span class="plan-empty">No trading plan scheduled.</span></div>`;
+    return;
+  }
+
+  root.innerHTML = `
+    <div class="card">
+      <h2>Day plan</h2>
+      <div class="plan-grid">
+        <div class="plan-item"><div class="k">Decision</div><div class="v"><span class="decision-pill ${decisionClass(plan.trade_decision)}">${plan.trade_decision}</span></div></div>
+        <div class="plan-item"><div class="k">Instrument</div><div class="v">${plan.instrument}</div></div>
+        <div class="plan-item"><div class="k">Direction</div><div class="v ${plan.direction === 'CALL' ? 'CALL' : 'PUT'}">${plan.direction}</div></div>
+        <div class="plan-item"><div class="k">Stop-loss</div><div class="v">30%</div></div>
+        <div class="plan-item"><div class="k">Target</div><div class="v">${plan.target_pct != null ? Math.round(plan.target_pct * 100) + '%' : '—'}</div></div>
+        <div class="plan-item"><div class="k">Exit time-box</div><div class="v">${plan.exit_minutes != null ? plan.exit_minutes + ' min' : '—'}</div></div>
+      </div>
+      ${plan.avoid_windows && plan.avoid_windows.length ? `<div class="avoid-line">Avoid windows: ${plan.avoid_windows.map(w => w[0] + '–' + w[1]).join(', ')} IST</div>` : ""}
+    </div>
+  `;
+}
+
+function statusLabel(s) {
+  return { pending: "Pending", in_window: "In window", past_window: "Past window", scheduled: "Scheduled" }[s] || s;
+}
+
+function renderWindows(windows) {
+  const el = document.getElementById("windows-card");
+  if (!el) return;
+  if (!windows || !windows.length) {
+    el.innerHTML = `<div class="card"><h2>Windows</h2><span class="plan-empty">No windows today.</span></div>`;
+    return;
+  }
+  el.innerHTML = `
+    <div class="card">
+      <h2>Windows</h2>
+      <div class="windows-grid">
+        ${windows.map(w => `
+          <div class="window-card">
+            <div class="window-head">
+              <div class="window-name">${w.label}</div>
+              <div class="status-chip ${w.status}">${statusLabel(w.status)}</div>
+            </div>
+            <div class="window-times">
+              <span>Window: ${w.window_start}&ndash;${w.window_end || "?"} IST</span>
+              <span>Target entry: ${w.target_entry} &middot; target exit: ${w.target_exit || "?"}</span>
+            </div>
+            <div class="window-note">${w.note}</div>
+          </div>`).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderTrades(trades) {
+  const el = document.getElementById("trades-card");
+  if (!el) return;
+  const rows = (trades || []).length
+    ? trades.map(t => `
+      <tr>
+        <td>${(t.entry_time_ist || "").replace("T", " ")}</td>
+        <td>${t.window || ""}</td>
+        <td>${t.underlying || ""} ${t.option_type || ""}</td>
+        <td>${t.strike ?? ""}</td>
+        <td>${t.exit_reason || ""}</td>
+        <td class="${(t.realized_pnl || 0) >= 0 ? 'pos-pnl-cell' : 'neg-pnl-cell'}">${fmt(t.realized_pnl || 0)}</td>
+      </tr>`).join("")
+    : '<tr class="empty-row"><td colspan="6">No trades logged for this date yet</td></tr>';
+
+  el.innerHTML = `
+    <div class="card">
+      <h2>Today's trade log</h2>
+      <table>
+        <thead><tr><th>Entry</th><th>Window</th><th>Underlying</th><th>Strike</th><th>Reason</th><th>P&amp;L</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+async function refresh() {
+  const statusBar = document.getElementById("status-bar");
+  let state;
+  try {
+    const res = await fetch(STATE_URL + "?t=" + Date.now(), { cache: "no-store" });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    state = await res.json();
+  } catch (e) {
+    statusBar.innerHTML = "";
+    document.getElementById("root").innerHTML = `<div class="card"><span class="plan-empty">Failed to load live_state.json — ${e.message}</span></div>`;
+    return;
+  }
+
+  const synced = state.synced_at ? new Date(state.synced_at) : null;
+  const ageMin = synced ? (Date.now() - synced.getTime()) / 60000 : Infinity;
+  const dotClass = ageMin > 24 * 60 ? "stale" : "live";
+
+  statusBar.innerHTML = `
+    <span><span class="dot ${dotClass}"></span>Snapshot, last synced <b>${synced ? synced.toLocaleString("en-IN") : "—"}</b></span>
+    <span>Showing: <b>${state.as_of_date || "—"}</b></span>
+    <span>Trade log through: <b>${state.trade_log_last_synced_through || "—"}</b></span>
+  `;
+
+  renderPlan(state.day_plan, state.shown_note);
+
+  const root = document.getElementById("root");
+  if (state.day_plan) {
+    root.innerHTML += `<div id="windows-card"></div><div id="trades-card"></div>`;
+    renderWindows(state.windows);
+    renderTrades(state.today_trades);
+  }
+}
+
+refresh();
+</script>
+</body>
+</html>

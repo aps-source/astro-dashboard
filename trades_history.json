@@ -1,0 +1,31 @@
+{
+  "days": [
+    {
+      "date": "2026-08-12",
+      "trades": [
+        {
+          "symbol": "NIFTY",
+          "entry_time": "2026-08-12T09:18:44+05:30",
+          "exit_time": "approx 2026-08-12T10:03:xx",
+          "side": "CALL",
+          "strike": 24400,
+          "expiry": "2026-08-18",
+          "entry_price": 170.4,
+          "exit_price": 141.5,
+          "qty": 130,
+          "pnl": -3757.0,
+          "reason": "time_box (window1_end 10:05 minus 2min; SL/target not hit)",
+          "entry_order_id": "22326081222271",
+          "exit_order_id": "322260812105008",
+          "pnl_confirmed": false,
+          "date": "2026-08-12"
+        }
+      ],
+      "day_pnl": -3757.0,
+      "day_trades": 1,
+      "day_wins": 0
+    }
+  ],
+  "overall_pnl": -3757.0,
+  "overall_trades": 1
+}

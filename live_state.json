@@ -1,0 +1,51 @@
+{
+  "as_of_date": "2026-09-01",
+  "today_date": "2026-09-01",
+  "synced_at": "2026-09-01T00:05:33.970909+05:30",
+  "sync_note": "Snapshot from the last sync of trade_log.json (itself pulled from the 7 Astro RemoteTrigger run logs) and plan_compact.json. Not a continuously-ticking feed -- ask Claude to 'sync the Astro trade log, then update the dashboard' to refresh.",
+  "shown_note": null,
+  "day_plan": {
+    "trade_decision": "TRADE",
+    "direction": "CALL",
+    "instrument": "Nifty 50 CE",
+    "window1_start": "09:20",
+    "window1_end": "10:05",
+    "window2_start": "10:35",
+    "window2_end": "11:00",
+    "avoid_windows": [
+      [
+        "11:45",
+        "13:15"
+      ]
+    ],
+    "target_pct": 0.22,
+    "exit_minutes": 10
+  },
+  "windows": [
+    {
+      "key": "window1",
+      "label": "Window 1",
+      "window_start": "09:20",
+      "window_end": "10:05",
+      "target_entry": "09:18",
+      "target_exit": "09:28",
+      "status": "pending",
+      "position": null,
+      "note": "Entry window hasn't opened yet."
+    },
+    {
+      "key": "window2",
+      "label": "Window 2",
+      "window_start": "10:35",
+      "window_end": "11:00",
+      "target_entry": "10:33",
+      "target_exit": "10:43",
+      "status": "pending",
+      "position": null,
+      "note": "Entry window hasn't opened yet."
+    }
+  ],
+  "eod_squareoff_time": "15:10",
+  "today_trades": [],
+  "trade_log_last_synced_through": "2026-08-12"
+}
