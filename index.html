@@ -172,10 +172,13 @@ function renderPlan(plan, shownNote) {
         <div class="plan-item"><div class="k">Decision</div><div class="v"><span class="decision-pill ${decisionClass(plan.trade_decision)}">${plan.trade_decision}</span></div></div>
         <div class="plan-item"><div class="k">Instrument</div><div class="v">${plan.instrument}</div></div>
         <div class="plan-item"><div class="k">Direction</div><div class="v ${plan.direction === 'CALL' ? 'CALL' : 'PUT'}">${plan.direction}</div></div>
-        <div class="plan-item"><div class="k">Stop-loss</div><div class="v">30%</div></div>
+        <div class="plan-item"><div class="k">Stop-loss (initial)</div><div class="v">30%</div></div>
+        <div class="plan-item"><div class="k">Trailing SL step</div><div class="v">${plan.trailing_jump_pct != null ? Math.round(plan.trailing_jump_pct * 100) + '%' : '—'}</div></div>
         <div class="plan-item"><div class="k">Target</div><div class="v">${plan.target_pct != null ? Math.round(plan.target_pct * 100) + '%' : '—'}</div></div>
-        <div class="plan-item"><div class="k">Exit time-box</div><div class="v">${plan.exit_minutes != null ? plan.exit_minutes + ' min' : '—'}</div></div>
+        <div class="plan-item"><div class="k">Window 1 backstop</div><div class="v">${plan.window1_backstop_exit || '—'}</div></div>
+        <div class="plan-item"><div class="k">Window 2 backstop</div><div class="v">${plan.window2_backstop_exit || '—'}</div></div>
       </div>
+      <div class="avoid-line">SL ratchets up via Dhan's native trailing stop as the position moves favorably — this is a fixed backstop deadline, not a fast time-box, so a trending position can run well past its window.</div>
       ${plan.avoid_windows && plan.avoid_windows.length ? `<div class="avoid-line">Avoid windows: ${plan.avoid_windows.map(w => w[0] + '–' + w[1]).join(', ')} IST</div>` : ""}
     </div>
   `;
@@ -204,7 +207,7 @@ function renderWindows(windows) {
             </div>
             <div class="window-times">
               <span>Window: ${w.window_start}&ndash;${w.window_end || "?"} IST</span>
-              <span>Target entry: ${w.target_entry} &middot; target exit: ${w.target_exit || "?"}</span>
+              <span>Target entry: ${w.target_entry} &middot; backstop exit: ${w.target_exit || "?"}</span>
             </div>
             <div class="window-note">${w.note}</div>
           </div>`).join("")}
