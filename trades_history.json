@@ -6,7 +6,7 @@
         {
           "symbol": "NIFTY",
           "entry_time": "2026-09-01T09:18:46+05:30",
-          "exit_time": "before 2026-09-01T09:39:00 (unknown exact time)+05:30",
+          "exit_time": "before 2026-09-01T09:39:00 (unknown exact time)",
           "side": "CALL",
           "strike": 24050,
           "expiry": "2026-09-01",
