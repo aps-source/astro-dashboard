@@ -1,7 +1,7 @@
 {
   "as_of_date": "2026-09-01",
   "today_date": "2026-09-01",
-  "synced_at": "2026-09-01T11:10:11.638988+05:30",
+  "synced_at": "2026-09-01T11:13:51.250615+05:30",
   "sync_note": "Snapshot from the last sync of trade_log.json (itself pulled from the 7 Astro RemoteTrigger run logs) and plan_compact.json. Not a continuously-ticking feed -- ask Claude to 'sync the Astro trade log, then update the dashboard' to refresh.",
   "shown_note": null,
   "day_plan": {
@@ -40,9 +40,9 @@
       "window_end": "11:00",
       "target_entry": "10:33",
       "target_exit": "10:43",
-      "status": "not_yet_confirmed",
+      "status": "closed",
       "position": null,
-      "note": "No trade logged for this window yet -- either it hasn't happened, or trade_log.json hasn't been synced since. Ask to sync."
+      "note": "Entry Rs.46.4 -> exit Rs.45.3, P&L Rs.-143.0. time_box -- target_entry 10:33 + exit_minutes 10 = target_exit 10:43; neither SL (33.80) nor target (58.90) hit, so Window 2 Exit-Morning cancelled both pending legs and force-closed with a market SELL at the 10:43-10:44 IST deadline, per the new September time-box logic."
     }
   ],
   "eod_squareoff_time": "15:10",
@@ -69,6 +69,30 @@
       "exit_time_ist": "before 2026-09-01T09:39:00 (unknown exact time)",
       "exit_reason": "target_hit -- the entry's bundled super-order TARGET_LEG fired on its own before Window 1 Exit's 09:35 IST backup check ran; that backup routine found the position already flat (Net: 0, Buy 130 @ Rs.39.45, Sell 130 @ Rs.48.95) and took no action. Exact target-leg order id and fill timestamp weren't captured -- the routine's own log only showed the already-closed position summary, not the fill event itself.",
       "realized_pnl": 1235.0
+    },
+    {
+      "date": "2026-09-01",
+      "window": "window2",
+      "underlying": "NIFTY",
+      "option_type": "CE",
+      "strike": 24050,
+      "expiry": "2026-09-01",
+      "security_id": "46987",
+      "qty": 130,
+      "lots": 2,
+      "trade_decision": "TRADE",
+      "entry_order_id": "32326090154071",
+      "entry_price": 46.4,
+      "entry_time_ist": "2026-09-01T10:33:48",
+      "sl_price_at_entry": 33.8,
+      "target_price_at_entry": 58.9,
+      "note_target_pct_exit_minutes": "target_pct 0.22 (22%), exit_minutes 10 -- same day-plan values as window1; happened to land on the same ATM strike (24050) as window1 since spot barely moved, which caused the P&L bug noted below",
+      "exit_order_id": "34226090131008",
+      "exit_price": 45.3,
+      "exit_time_ist": "2026-09-01T10:44:30",
+      "exit_reason": "time_box -- target_entry 10:33 + exit_minutes 10 = target_exit 10:43; neither SL (33.80) nor target (58.90) hit, so Window 2 Exit-Morning cancelled both pending legs and force-closed with a market SELL at the 10:43-10:44 IST deadline, per the new September time-box logic.",
+      "realized_pnl": -143.0,
+      "discrepancy_note": "IMPORTANT: the exit routine's own PushNotification/summary claimed 'Realized P&L on that leg: Rs.1,092' -- that figure is WRONG for this trade specifically. Because window1 and window2 both traded the identical contract today (NIFTY 24050 CE, same strike/expiry -- spot barely moved between 09:18 and 10:33), Dhan bundles both fills into ONE cumulative intraday position line (Buy 260 @ avg Rs.42.92, Sell 260 @ avg Rs.47.12, P&L Rs.1,092 = window1's +1,235 minus window2's -143). The routine read that CUMULATIVE position P&L and reported it as if it were window2's own result. The Rs.-143.00 realized_pnl above is computed directly from window2's own entry/exit fills (45.30-46.40)*130, confirmed against the user's own Dhan order-history screenshot (10:33:48 BUY @ 46.40, 10:44:30 SELL @ 45.30, both 130/130 Success) -- that is the correct number for this trade. This is a systemic risk, not a one-off: any day where window1 and window2 land on the same strike will make the exit routines' own self-reported P&L wrong the same way. Not yet fixed in the routines themselves -- would need the exit routine to compute P&L from its own order's average prices (orderbook_agent_tool 'get' on its own entry/exit order ids) rather than from the position's aggregate 'Realized' field."
     }
   ],
   "trade_log_last_synced_through": "2026-09-01"

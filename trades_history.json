@@ -19,10 +19,27 @@
           "exit_order_id": null,
           "pnl_confirmed": true,
           "date": "2026-09-01"
+        },
+        {
+          "symbol": "NIFTY",
+          "entry_time": "2026-09-01T10:33:48+05:30",
+          "exit_time": "2026-09-01T10:44:30+05:30",
+          "side": "CALL",
+          "strike": 24050,
+          "expiry": "2026-09-01",
+          "entry_price": 46.4,
+          "exit_price": 45.3,
+          "qty": 130,
+          "pnl": -143.0,
+          "reason": "time_box -- target_entry 10:33 + exit_minutes 10 = target_exit 10:43; neither SL (33.80) nor target (58.90) hit, so Window 2 Exit-Morning cancelled both pending legs and force-closed with a market SELL at the 10:43-10:44 IST deadline, per the new September time-box logic.",
+          "entry_order_id": "32326090154071",
+          "exit_order_id": "34226090131008",
+          "pnl_confirmed": false,
+          "date": "2026-09-01"
         }
       ],
-      "day_pnl": 1235.0,
-      "day_trades": 1,
+      "day_pnl": 1092.0,
+      "day_trades": 2,
       "day_wins": 1
     },
     {
@@ -51,6 +68,6 @@
       "day_wins": 0
     }
   ],
-  "overall_pnl": -2522.0,
-  "overall_trades": 2
+  "overall_pnl": -2665.0,
+  "overall_trades": 3
 }
