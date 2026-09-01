@@ -1,6 +1,31 @@
 {
   "days": [
     {
+      "date": "2026-09-01",
+      "trades": [
+        {
+          "symbol": "NIFTY",
+          "entry_time": "2026-09-01T09:18:46+05:30",
+          "exit_time": "before 2026-09-01T09:39:00 (unknown exact time)+05:30",
+          "side": "CALL",
+          "strike": 24050,
+          "expiry": "2026-09-01",
+          "entry_price": 39.45,
+          "exit_price": 48.95,
+          "qty": 130,
+          "pnl": 1235.0,
+          "reason": "target_hit -- the entry's bundled super-order TARGET_LEG fired on its own before Window 1 Exit's 09:35 IST backup check ran; that backup routine found the position already flat (Net: 0, Buy 130 @ Rs.39.45, Sell 130 @ Rs.48.95) and took no action. Exact target-leg order id and fill timestamp weren't captured -- the routine's own log only showed the already-closed position summary, not the fill event itself.",
+          "entry_order_id": "22326090122271",
+          "exit_order_id": null,
+          "pnl_confirmed": true,
+          "date": "2026-09-01"
+        }
+      ],
+      "day_pnl": 1235.0,
+      "day_trades": 1,
+      "day_wins": 1
+    },
+    {
       "date": "2026-08-12",
       "trades": [
         {
@@ -26,6 +51,6 @@
       "day_wins": 0
     }
   ],
-  "overall_pnl": -3757.0,
-  "overall_trades": 1
+  "overall_pnl": -2522.0,
+  "overall_trades": 2
 }
