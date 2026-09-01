@@ -1,7 +1,7 @@
 {
   "as_of_date": "2026-09-01",
   "today_date": "2026-09-01",
-  "synced_at": "2026-09-01T15:35:02.712209+05:30",
+  "synced_at": "2026-09-01T23:26:06.718656+05:30",
   "sync_note": "Snapshot from the last sync of trade_log.json (itself pulled from the 7 Astro RemoteTrigger run logs) and plan_compact.json. Not a continuously-ticking feed -- ask Claude to 'sync the Astro trade log, then update the dashboard' to refresh.",
   "shown_note": null,
   "day_plan": {
@@ -18,8 +18,10 @@
         "13:15"
       ]
     ],
-    "target_pct": 0.22,
-    "exit_minutes": 10
+    "target_pct": 1.0,
+    "trailing_jump_pct": 0.05,
+    "window1_backstop_exit": "10:25",
+    "window2_backstop_exit": "14:50"
   },
   "windows": [
     {
@@ -28,7 +30,7 @@
       "window_start": "09:20",
       "window_end": "10:05",
       "target_entry": "09:18",
-      "target_exit": "09:28",
+      "target_exit": "10:25",
       "status": "closed",
       "position": null,
       "note": "Entry Rs.39.45 -> exit Rs.48.95, P&L Rs.1235.0. target_hit -- the entry's bundled super-order TARGET_LEG fired on its own before Window 1 Exit's 09:35 IST backup check ran; that backup routine found the position already flat (Net: 0, Buy 130 @ Rs.39.45, Sell 130 @ Rs.48.95) and took no action. Exact target-leg order id and fill timestamp weren't captured -- the routine's own log only showed the already-closed position summary, not the fill event itself."
@@ -39,7 +41,7 @@
       "window_start": "10:35",
       "window_end": "11:00",
       "target_entry": "10:33",
-      "target_exit": "10:43",
+      "target_exit": "14:50",
       "status": "closed",
       "position": null,
       "note": "Entry Rs.46.4 -> exit Rs.45.3, P&L Rs.-143.0. time_box -- target_entry 10:33 + exit_minutes 10 = target_exit 10:43; neither SL (33.80) nor target (58.90) hit, so Window 2 Exit-Morning cancelled both pending legs and force-closed with a market SELL at the 10:43-10:44 IST deadline, per the new September time-box logic."
