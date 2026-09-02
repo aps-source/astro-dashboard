@@ -1,7 +1,7 @@
 {
   "as_of_date": "2026-09-02",
   "today_date": "2026-09-02",
-  "synced_at": "2026-09-02T13:50:02.681629+05:30",
+  "synced_at": "2026-09-02T14:05:03.182397+05:30",
   "sync_note": "Snapshot from the last sync of trade_log.json (itself pulled from the 7 Astro RemoteTrigger run logs) and plan_compact.json. Not a continuously-ticking feed -- ask Claude to 'sync the Astro trade log, then update the dashboard' to refresh.",
   "shown_note": null,
   "day_plan": {
@@ -46,9 +46,9 @@
       "window_end": "14:20",
       "target_entry": "13:48",
       "target_exit": "14:50",
-      "status": "not_yet_confirmed",
+      "status": "closed",
       "position": null,
-      "note": "No trade logged for this window yet -- either it hasn't happened, or trade_log.json hasn't been synced since. Ask to sync."
+      "note": "Entry Rs.122.3 -> exit Rs.None, P&L Rs.None. None"
     }
   ],
   "eod_squareoff_time": "15:10",
@@ -69,6 +69,27 @@
       "exit_reason": "auto_leg_exit (algoId-linked, but fill price matches neither target nor SL closely -- check manually)",
       "realized_pnl": -1088.75,
       "target_price_at_entry": 246.8,
+      "date": "2026-09-02",
+      "lots": null,
+      "trade_decision": "SMALL SIZE",
+      "source": "live_tick_auto"
+    },
+    {
+      "window": "window2",
+      "underlying": "NIFTY",
+      "security_id": "42636",
+      "trading_symbol": "NIFTY-Sep2026-23900-PE",
+      "qty": 65,
+      "entry_order_id": "34326090225471",
+      "entry_price": 122.3,
+      "entry_time_ist": "2026-09-02T13:48:58",
+      "sl_price_at_entry": 85.6,
+      "exit_order_id": null,
+      "exit_price": null,
+      "exit_time_ist": null,
+      "exit_reason": null,
+      "realized_pnl": null,
+      "target_price_at_entry": 244.6,
       "date": "2026-09-02",
       "lots": null,
       "trade_decision": "SMALL SIZE",
