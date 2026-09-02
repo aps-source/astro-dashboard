@@ -6,22 +6,22 @@
         {
           "symbol": "NIFTY",
           "entry_time": "2026-09-02T09:18:48+05:30",
-          "exit_time": "",
+          "exit_time": "2026-09-02T10:21:37+05:30",
           "side": null,
           "strike": null,
           "expiry": null,
           "entry_price": 123.4,
-          "exit_price": null,
+          "exit_price": 106.65,
           "qty": 65,
-          "pnl": null,
-          "reason": null,
+          "pnl": -1088.75,
+          "reason": "auto_leg_exit (algoId-linked, but fill price matches neither target nor SL closely -- check manually)",
           "entry_order_id": "34326090213671",
-          "exit_order_id": null,
+          "exit_order_id": "312260902118408",
           "pnl_confirmed": true,
           "date": "2026-09-02"
         }
       ],
-      "day_pnl": 0,
+      "day_pnl": -1088.75,
       "day_trades": 1,
       "day_wins": 0
     },
@@ -93,6 +93,6 @@
       "day_wins": 0
     }
   ],
-  "overall_pnl": -2665.0,
+  "overall_pnl": -3753.75,
   "overall_trades": 4
 }
