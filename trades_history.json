@@ -1,6 +1,31 @@
 {
   "days": [
     {
+      "date": "2026-09-02",
+      "trades": [
+        {
+          "symbol": "NIFTY",
+          "entry_time": "2026-09-02T09:18:48+05:30",
+          "exit_time": "",
+          "side": null,
+          "strike": null,
+          "expiry": null,
+          "entry_price": 123.4,
+          "exit_price": null,
+          "qty": 65,
+          "pnl": null,
+          "reason": null,
+          "entry_order_id": "34326090213671",
+          "exit_order_id": null,
+          "pnl_confirmed": true,
+          "date": "2026-09-02"
+        }
+      ],
+      "day_pnl": 0,
+      "day_trades": 1,
+      "day_wins": 0
+    },
+    {
       "date": "2026-09-01",
       "trades": [
         {
@@ -69,5 +94,5 @@
     }
   ],
   "overall_pnl": -2665.0,
-  "overall_trades": 3
+  "overall_trades": 4
 }
