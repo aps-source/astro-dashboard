@@ -1,7 +1,7 @@
 {
   "as_of_date": "2026-09-03",
   "today_date": "2026-09-03",
-  "synced_at": "2026-09-03T14:50:03.206429+05:30",
+  "synced_at": "2026-09-03T15:05:04.276732+05:30",
   "sync_note": "Snapshot from the last sync of trade_log.json (itself pulled from the 7 Astro RemoteTrigger run logs) and plan_compact.json. Not a continuously-ticking feed -- ask Claude to 'sync the Astro trade log, then update the dashboard' to refresh.",
   "shown_note": null,
   "day_plan": {
@@ -48,7 +48,7 @@
       "target_exit": "14:50",
       "status": "closed",
       "position": null,
-      "note": "Entry Rs.90.5 -> exit Rs.None, P&L Rs.None. None"
+      "note": "Entry Rs.90.5 -> exit Rs.86.75, P&L Rs.-243.75. time_box (manual square-off, no algoId back-reference to the entry order)"
     }
   ],
   "eod_squareoff_time": "15:10",
@@ -84,11 +84,11 @@
       "entry_price": 90.5,
       "entry_time_ist": "2026-09-03T13:48:52",
       "sl_price_at_entry": 63.3,
-      "exit_order_id": null,
-      "exit_price": null,
-      "exit_time_ist": null,
-      "exit_reason": null,
-      "realized_pnl": null,
+      "exit_order_id": "23226090339208",
+      "exit_price": 86.75,
+      "exit_time_ist": "2026-09-03T14:56:48",
+      "exit_reason": "time_box (manual square-off, no algoId back-reference to the entry order)",
+      "realized_pnl": -243.75,
       "target_price_at_entry": 181.0,
       "date": "2026-09-03",
       "lots": null,
