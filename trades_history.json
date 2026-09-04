@@ -6,24 +6,24 @@
         {
           "symbol": "NIFTY",
           "entry_time": "2026-09-04T13:48:56+05:30",
-          "exit_time": "",
+          "exit_time": "2026-09-04T15:12:15+05:30",
           "side": null,
           "strike": null,
           "expiry": null,
           "entry_price": 41.7,
-          "exit_price": null,
+          "exit_price": 43.8,
           "qty": 65,
-          "pnl": null,
-          "reason": null,
+          "pnl": 136.5,
+          "reason": "time_box (manual square-off, no algoId back-reference to the entry order)",
           "entry_order_id": "34326090426571",
-          "exit_order_id": null,
+          "exit_order_id": "322260904387808",
           "pnl_confirmed": true,
           "date": "2026-09-04"
         }
       ],
-      "day_pnl": 0,
+      "day_pnl": 136.5,
       "day_trades": 1,
-      "day_wins": 0
+      "day_wins": 1
     },
     {
       "date": "2026-09-03",
@@ -177,6 +177,6 @@
       "day_wins": 0
     }
   ],
-  "overall_pnl": -2141.75,
+  "overall_pnl": -2005.25,
   "overall_trades": 8
 }
