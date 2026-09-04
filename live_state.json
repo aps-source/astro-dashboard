@@ -1,7 +1,7 @@
 {
-  "as_of_date": "2026-09-03",
-  "today_date": "2026-09-03",
-  "synced_at": "2026-09-03T15:35:02.836329+05:30",
+  "as_of_date": "2026-09-04",
+  "today_date": "2026-09-04",
+  "synced_at": "2026-09-04T09:05:03.196323+05:30",
   "sync_note": "Snapshot from the last sync of trade_log.json (itself pulled from the 7 Astro RemoteTrigger run logs) and plan_compact.json. Not a continuously-ticking feed -- ask Claude to 'sync the Astro trade log, then update the dashboard' to refresh.",
   "shown_note": null,
   "day_plan": {
@@ -35,9 +35,9 @@
       "window_end": "10:05",
       "target_entry": "09:18",
       "target_exit": "10:25",
-      "status": "closed",
+      "status": "not_yet_confirmed",
       "position": null,
-      "note": "Entry Rs.97.3 -> exit Rs.126.65, P&L Rs.1907.75. time_box (manual square-off, no algoId back-reference to the entry order)"
+      "note": "No trade logged for this window yet -- either it hasn't happened, or trade_log.json hasn't been synced since. Ask to sync."
     },
     {
       "key": "window2",
@@ -46,55 +46,12 @@
       "window_end": "14:20",
       "target_entry": "13:48",
       "target_exit": "14:50",
-      "status": "closed",
+      "status": "not_yet_confirmed",
       "position": null,
-      "note": "Entry Rs.90.5 -> exit Rs.86.75, P&L Rs.-243.75. time_box (manual square-off, no algoId back-reference to the entry order)"
+      "note": "No trade logged for this window yet -- either it hasn't happened, or trade_log.json hasn't been synced since. Ask to sync."
     }
   ],
   "eod_squareoff_time": "15:10",
-  "today_trades": [
-    {
-      "window": "window1",
-      "underlying": "NIFTY",
-      "security_id": "42640",
-      "trading_symbol": "NIFTY-Sep2026-24000-PE",
-      "qty": 65,
-      "entry_order_id": "34326090312671",
-      "entry_price": 97.3,
-      "entry_time_ist": "2026-09-03T09:18:33",
-      "sl_price_at_entry": 68.1,
-      "exit_order_id": "242260903182008",
-      "exit_price": 126.65,
-      "exit_time_ist": "2026-09-03T11:18:36",
-      "exit_reason": "time_box (manual square-off, no algoId back-reference to the entry order)",
-      "realized_pnl": 1907.75,
-      "target_price_at_entry": 194.6,
-      "date": "2026-09-03",
-      "lots": null,
-      "trade_decision": "SMALL SIZE",
-      "source": "live_tick_auto"
-    },
-    {
-      "window": "window2",
-      "underlying": "NIFTY",
-      "security_id": "42636",
-      "trading_symbol": "NIFTY-Sep2026-23900-PE",
-      "qty": 65,
-      "entry_order_id": "34326090331071",
-      "entry_price": 90.5,
-      "entry_time_ist": "2026-09-03T13:48:52",
-      "sl_price_at_entry": 63.3,
-      "exit_order_id": "23226090339208",
-      "exit_price": 86.75,
-      "exit_time_ist": "2026-09-03T14:56:48",
-      "exit_reason": "time_box (manual square-off, no algoId back-reference to the entry order)",
-      "realized_pnl": -243.75,
-      "target_price_at_entry": 181.0,
-      "date": "2026-09-03",
-      "lots": null,
-      "trade_decision": "SMALL SIZE",
-      "source": "live_tick_auto"
-    }
-  ],
+  "today_trades": [],
   "trade_log_last_synced_through": "2026-09-02"
 }
