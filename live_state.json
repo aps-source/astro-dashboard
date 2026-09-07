@@ -1,17 +1,17 @@
 {
-  "as_of_date": "2026-09-04",
-  "today_date": "2026-09-04",
-  "synced_at": "2026-09-04T15:20:03.154715+05:30",
+  "as_of_date": "2026-09-07",
+  "today_date": "2026-09-07",
+  "synced_at": "2026-09-07T09:05:03.141964+05:30",
   "sync_note": "Snapshot from the last sync of trade_log.json (itself pulled from the 7 Astro RemoteTrigger run logs) and plan_compact.json. Not a continuously-ticking feed -- ask Claude to 'sync the Astro trade log, then update the dashboard' to refresh.",
   "shown_note": null,
   "day_plan": {
     "trade_decision": "SMALL SIZE",
-    "direction": "PUT",
-    "instrument": "Nifty 50 PE",
+    "direction": "CALL",
+    "instrument": "Nifty 50 CE",
     "window1_start": "09:20",
     "window1_end": "10:05",
-    "window2_start": "13:50",
-    "window2_end": "14:20",
+    "window2_start": "10:35",
+    "window2_end": "11:00",
     "avoid_windows": [
       [
         "11:45",
@@ -42,38 +42,16 @@
     {
       "key": "window2",
       "label": "Window 2",
-      "window_start": "13:50",
-      "window_end": "14:20",
-      "target_entry": "13:48",
+      "window_start": "10:35",
+      "window_end": "11:00",
+      "target_entry": "10:33",
       "target_exit": "14:50",
-      "status": "closed",
+      "status": "not_yet_confirmed",
       "position": null,
-      "note": "Entry Rs.41.7 -> exit Rs.43.8, P&L Rs.136.5. time_box (manual square-off, no algoId back-reference to the entry order)"
+      "note": "No trade logged for this window yet -- either it hasn't happened, or trade_log.json hasn't been synced since. Ask to sync."
     }
   ],
   "eod_squareoff_time": "15:10",
-  "today_trades": [
-    {
-      "window": "window2",
-      "underlying": "NIFTY",
-      "security_id": "42634",
-      "trading_symbol": "NIFTY-Sep2026-23850-PE",
-      "qty": 65,
-      "entry_order_id": "34326090426571",
-      "entry_price": 41.7,
-      "entry_time_ist": "2026-09-04T13:48:56",
-      "sl_price_at_entry": 29.2,
-      "exit_order_id": "322260904387808",
-      "exit_price": 43.8,
-      "exit_time_ist": "2026-09-04T15:12:15",
-      "exit_reason": "time_box (manual square-off, no algoId back-reference to the entry order)",
-      "realized_pnl": 136.5,
-      "target_price_at_entry": 83.4,
-      "date": "2026-09-04",
-      "lots": null,
-      "trade_decision": "SMALL SIZE",
-      "source": "live_tick_auto"
-    }
-  ],
+  "today_trades": [],
   "trade_log_last_synced_through": "2026-09-02"
 }
