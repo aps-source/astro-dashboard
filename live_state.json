@@ -1,13 +1,13 @@
 {
-  "as_of_date": "2026-09-08",
-  "today_date": "2026-09-08",
-  "synced_at": "2026-09-08T15:35:02.978032+05:30",
+  "as_of_date": "2026-09-09",
+  "today_date": "2026-09-09",
+  "synced_at": "2026-09-09T09:05:02.407603+05:30",
   "sync_note": "Snapshot from the last sync of trade_log.json (itself pulled from the 7 Astro RemoteTrigger run logs) and plan_compact.json. Not a continuously-ticking feed -- ask Claude to 'sync the Astro trade log, then update the dashboard' to refresh.",
   "shown_note": null,
   "day_plan": {
-    "trade_decision": "SMALL SIZE",
+    "trade_decision": "TRADE",
     "direction": "CALL",
-    "instrument": "Nifty 50 CE",
+    "instrument": "Sensex CE",
     "window1_start": "09:20",
     "window1_end": "10:05",
     "window2_start": "10:35",
@@ -16,16 +16,13 @@
       [
         "11:45",
         "13:15"
-      ],
-      [
-        "14:40",
-        "15:05"
       ]
     ],
     "target_pct": 1.0,
     "trailing_jump_pct": 0.05,
     "window1_backstop_exit": "10:25",
-    "window2_backstop_exit": "14:50"
+    "window2_backstop_exit": "14:50",
+    "require_3min_bullish": true
   },
   "windows": [
     {
