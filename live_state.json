@@ -1,7 +1,7 @@
 {
   "as_of_date": "2026-09-15",
   "today_date": "2026-09-14",
-  "synced_at": "2026-09-14T11:50:01.873094+05:30",
+  "synced_at": "2026-09-14T12:05:04.281555+05:30",
   "sync_note": "Snapshot from the last sync of trade_log.json (itself pulled from the 7 Astro RemoteTrigger run logs) and plan_compact.json. Not a continuously-ticking feed -- ask Claude to 'sync the Astro trade log, then update the dashboard' to refresh.",
   "shown_note": "No trading plan for 2026-09-14 -- showing the next scheduled session (2026-09-15).",
   "day_plan": {
