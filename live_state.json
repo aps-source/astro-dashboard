@@ -1,9 +1,9 @@
 {
   "as_of_date": "2026-09-15",
-  "today_date": "2026-09-14",
-  "synced_at": "2026-09-14T12:20:01.971516+05:30",
+  "today_date": "2026-09-15",
+  "synced_at": "2026-09-15T09:05:06.190418+05:30",
   "sync_note": "Snapshot from the last sync of trade_log.json (itself pulled from the 7 Astro RemoteTrigger run logs) and plan_compact.json. Not a continuously-ticking feed -- ask Claude to 'sync the Astro trade log, then update the dashboard' to refresh.",
-  "shown_note": "No trading plan for 2026-09-14 -- showing the next scheduled session (2026-09-15).",
+  "shown_note": null,
   "day_plan": {
     "trade_decision": "TRADE",
     "direction": "CALL",
@@ -31,9 +31,9 @@
       "window_end": "10:05",
       "target_entry": "09:18",
       "target_exit": "10:25",
-      "status": "scheduled",
+      "status": "not_yet_confirmed",
       "position": null,
-      "note": "This is the next scheduled session, not today -- nothing to check yet."
+      "note": "No trade logged for this window yet -- either it hasn't happened, or trade_log.json hasn't been synced since. Ask to sync."
     },
     {
       "key": "window2",
@@ -42,9 +42,9 @@
       "window_end": "11:00",
       "target_entry": "10:33",
       "target_exit": "14:50",
-      "status": "scheduled",
+      "status": "not_yet_confirmed",
       "position": null,
-      "note": "This is the next scheduled session, not today -- nothing to check yet."
+      "note": "No trade logged for this window yet -- either it hasn't happened, or trade_log.json hasn't been synced since. Ask to sync."
     }
   ],
   "eod_squareoff_time": "15:10",
